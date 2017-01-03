@@ -59,6 +59,13 @@ public class ToDoServlet extends HttpServlet {
             request.setAttribute("filter","all");
             return INDEX_PAGE;
         }
+
+        if(requestPath.equals("/insert")){
+            ToDoItem toDoItem=new ToDoItem();
+            toDoItem.setName(request.getParameter("name"));
+            toDoRepository.insert(toDoItem);
+            return "/"+request.getParameter("filter");
+        }
         return FIND_ALL_SERVLET_PATH;
     }
 
@@ -87,15 +94,15 @@ public class ToDoListStats{
         ++completed;
     }
 
-    private int getActive(){
+    public int getActive(){
         return active;
     }
 
-    private int getCompleted(){
+    public int getCompleted(){
         return completed;
     }
 
-    private int getAll(){
+    public int getAll(){
         return active+completed;
     }
 }
